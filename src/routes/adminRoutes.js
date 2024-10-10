@@ -41,4 +41,10 @@ router.put('/edit-product/:productID', adminMiddleware.sessionAdmin, adminMiddle
 // Route để delete xóa chủ đề = done 100%
 router.delete('/delete-product/:productID', adminMiddleware.sessionAdmin, adminController.deleteDeleteProduct);
 
+// Route để get danh sách chủ đề = done 100%
+router.get('/list-contact', adminMiddleware.sessionAdmin, adminController.getListContact);
+
+// Route để delete xóa chủ đề = done 100%
+router.delete('/delete-contact/:contactID', adminMiddleware.sessionAdmin, adminController.deleteDeleteContact);
+
 module.exports = router;

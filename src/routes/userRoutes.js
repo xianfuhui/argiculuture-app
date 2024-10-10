@@ -18,4 +18,6 @@ router.get('/product', userController.getProduct);
 
 router.get('/testimonial', userController.getTestimonial);
 
+router.post('/add-contact', userController.postAddContact);
+
 module.exports = router;

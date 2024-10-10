@@ -10,6 +10,7 @@ require('dotenv').config();
 
 const Admin = require('../models/adminModel');
 const Product = require('../models/productModel');
+const Contact = require('../models/contactModel');
 
 // Lấy thông tin trang chủ
 const getAbout = async (req, res) => {
@@ -78,6 +79,24 @@ const getTestimonial = async (req, res) => {
     }
 };
 
+const postAddContact = async (req, res) => {
+    try {
+        const newContact = new Contact({
+            contact_name: req.body.name,
+            contact_email: req.body.email,
+            contact_subject: req.body.subject,
+            contact_message: req.body.message
+        });
+        
+        await newContact.save();
+
+        req.flash('success', 'Success');
+        return res.redirect('/user/contact');
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
 module.exports = {
     getAbout,
     getContact,
@@ -86,4 +105,5 @@ module.exports = {
     getBlog,
     getProduct,
     getTestimonial,
+    postAddContact,
 };

@@ -10,6 +10,7 @@ require('dotenv').config();
 
 const Admin = require('../models/adminModel');
 const Product = require('../models/productModel');
+const Contact = require('../models/contactModel');
 
 // Hiển thị đăng nhập 
 const getLoginAdmin = async (req, res) => {
@@ -206,6 +207,33 @@ const deleteDeleteProduct = async (req, res) => {
     }
 };
 
+// Lấy thông tin tất cả chủ đề = done
+const getListContact = async (req, res) => {
+    try {
+        const list_contact = await Contact.find();
+        res.render('admin/admin_ListContact', { list_contact });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+// Xóa sản phẩm vào database
+const deleteDeleteContact = async (req, res) => {
+    const contactID = req.params.contactID;
+    
+    try {
+        const deletedContact = await Contact.findByIdAndDelete(contactID);
+
+        if (!deletedContact) {
+            return res.status(404).json({ message: 'Contact not found.' });
+        }
+
+        res.status(200).json({ message: 'Contact and associated references deleted successfully.', data: deletedContact });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
 module.exports = {
     getLoginAdmin,
     postLoginAdmin,
@@ -219,4 +247,6 @@ module.exports = {
     postAddProduct,
     putEditProduct,
     deleteDeleteProduct,
+    getListContact,
+    deleteDeleteContact,
 };
